@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EcoAksi — Lawan Sampah Plastik, Mulai dari Genggaman Tangan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f3ea;
+    --surface: #ffffff;
+    --surface-2: #eef2e6;
+    --text: #1d2b1f;
+    --text-muted: #51604f;
+    --accent: #2f6b4f;
+    --accent-dark: #1f4a36;
+    --accent-soft: #d9ead9;
+    --highlight: #e4a93b;
+    --border: #d9d3c2;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #11170f;
+      --surface: #182018;
+      --surface-2: #1f291e;
+      --text: #ecf0e6;
+      --text-muted: #a9b5a3;
+      --accent: #6fbf8d;
+      --accent-dark: #9fd6b6;
+      --accent-soft: #223a2a;
+      --highlight: #e8b65b;
+      --border: #2d3a2b;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #11170f;
+    --surface: #182018;
+    --surface-2: #1f291e;
+    --text: #ecf0e6;
+    --text-muted: #a9b5a3;
+    --accent: #6fbf8d;
+    --accent-dark: #9fd6b6;
+    --accent-soft: #223a2a;
+    --highlight: #e8b65b;
+    --border: #2d3a2b;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(70px + env(safe-area-inset-top, 0px));
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    line-height: 1.65;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    background: var(--surface);
+  }
+  h1, h2, h3 { font-family: 'Fraunces', serif; line-height: 1.15; margin: 0 0 .5em; color: var(--text); }
+  p { margin: 0 0 1em; color: var(--text-muted); }
+  a { color: var(--accent); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  nav {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 15;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(6px);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; max-width: 880px; }
+  .brand { display: flex; align-items: center; gap: 8px; font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.15rem; color: var(--accent-dark); text-decoration: none; }
+  .brand svg { width: 26px; height: 26px; }
+  nav ul { list-style: none; display: flex; gap: 18px; margin: 0; padding: 0; }
+  nav a { text-decoration: none; color: var(--text-muted); font-size: .92rem; font-weight: 500; }
+  nav a:hover { color: var(--accent); }
+  @media (max-width: 560px) { nav ul { display: none; } }
+
+  header.hero {
+    background: linear-gradient(160deg, var(--accent-soft), var(--bg) 70%);
+    padding: 64px 0 56px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    display: inline-block;
+    background: var(--surface);
+    color: var(--accent-dark);
+    border: 1px solid var(--border);
+    padding: 5px 14px;
+    border-radius: 99px;
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  header.hero h1 { font-size: clamp(2rem, 5vw, 3rem); max-width: 14ch; color: var(--accent-dark); }
+  header.hero p.lead { font-size: 1.08rem; max-width: 56ch; }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 10px; font-weight: 600; font-size: .95rem;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-dark); }
+  .btn-ghost { background: transparent; border-color: var(--border); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+  .tag { color: var(--accent); font-weight: 700; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+  .section-head { max-width: 60ch; margin-bottom: 32px; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .stat-num { font-family: 'Fraunces', serif; font-size: 1.9rem; font-weight: 700; color: var(--accent-dark); display: block; margin-bottom: 4px; }
+  .stat-card p { font-size: .88rem; margin: 0; }
+  .source-note { font-size: .78rem; color: var(--text-muted); margin-top: 14px; }
+
+  .article-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 26px; margin-bottom: 18px; }
+  .article-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
+  .article-card .num { color: var(--highlight); font-weight: 700; font-family: 'Fraunces', serif; margin-right: 8px; }
+
+  .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+  .tool-card { background: var(--surface-2); border-radius: 14px; padding: 20px; }
+  .tool-card .icon { width: 42px; height: 42px; border-radius: 10px; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 1.2rem; }
+  .tool-card h3 { font-size: 1.02rem; margin-bottom: 6px; }
+  .tool-card p { font-size: .9rem; margin: 0; }
+  .tool-card .label { display: inline-block; margin-top: 10px; font-size: .74rem; font-weight: 700; color: var(--accent-dark); background: var(--accent-soft); padding: 3px 10px; border-radius: 99px; }
+
+  .steps { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding-left: 46px; margin-bottom: 20px; }
+  .steps li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 0;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; font-size: .9rem;
+  }
+  .steps li strong { display: block; color: var(--text); font-size: 1.02rem; margin-bottom: 2px; }
+
+  .cta-box {
+    background: var(--accent-dark); color: #fff; border-radius: 20px;
+    padding: 40px 32px; text-align: center;
+  }
+  .cta-box h2 { color: #fff; }
+  .cta-box p { color: #d7e6da; max-width: 46ch; margin-left: auto; margin-right: auto; }
+  .cta-box .btn-primary { background: var(--highlight); color: #241a06; }
+  .cta-box .btn-primary:hover { opacity: .9; background: var(--highlight); }
+
+  footer { padding: 36px 0 48px; }
+  footer .wrap { display: flex; flex-direction: column; gap: 10px; }
+  footer p { font-size: .82rem; margin: 0; }
+  footer .refs { font-size: .78rem; }
+  footer .refs a { color: var(--text-muted); text-decoration: underline; }
+  table.src { overflow-x: auto; display: block; }
+
+  @media (max-width: 560px) {
+    section { padding: 40px 0; }
+    header.hero { padding: 48px 0 40px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C7 2 4 6 4 10c0 5 4 9 8 12 4-3 8-7 8-12 0-4-3-8-8-8Z" fill="var(--accent)"/><path d="M12 7v9M8.5 10.5 12 14l3.5-3.5" stroke="var(--surface)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      EcoAksi
+    </a>
+    <ul>
+      <li><a href="#isu">Isu</a></li>
+      <li><a href="#edukasi">Edukasi</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#aksi">Aksi</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow">Environmental Campaign 🌱</span>
+    <h1>Lawan Sampah Plastik, Mulai dari Genggaman Tangan</h1>
+    <p class="lead">EcoAksi adalah kampanye edukasi lingkungan yang mengajak kita mengenali masalah sampah plastik di Indonesia dan memanfaatkan aplikasi mobile serta teknologi opensource untuk menjadi bagian dari solusinya — bukan cuma jadi penonton.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#aksi">Ikut Ambil Aksi</a>
+      <a class="btn btn-ghost" href="#isu">Lihat Datanya</a>
+    </div>
+  </div>
+</header>
+
+<section id="isu">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Isu Lingkungan Saat Ini</span>
+      <h2>Sampah plastik Indonesia, dalam angka</h2>
+      <p>Masalah sampah bukan isu nun jauh di sana — ini terjadi setiap kali kita membuang bungkus jajan atau botol minum. Berikut gambaran kondisinya belakangan ini.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <span class="stat-num">±50 juta ton</span>
+        <p>Perkiraan total timbulan sampah nasional yang tercatat pada 2025.</p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">~16 juta ton</span>
+        <p>Perkiraan sampah yang berisiko mengalir ke laut Indonesia dalam setahun terakhir.</p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">~17%</span>
+        <p>Porsi sampah plastik dari total sampah nasional menurut catatan KLHK.</p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">#2 dunia</span>
+        <p>Posisi Indonesia sebagai penyumbang sampah plastik ke laut terbesar secara global.</p>
+      </div>
+    </div>
+    <p class="source-note">*Angka dirangkum dari pemberitaan dan publikasi Kementerian Lingkungan Hidup dan Kehutanan (KLHK) serta Kementerian Kelautan dan Perikanan (KKP) tahun 2025 — lihat referensi di bagian bawah halaman.</p>
+  </div>
+</section>
+
+<section id="edukasi">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Edukasi &amp; Pengelolaan</span>
+      <h2>Apa yang sebenarnya bisa kita lakukan?</h2>
+      <p>Tiga kebiasaan kecil berikut, kalau dilakukan konsisten, berdampak besar untuk mengurangi sampah plastik dari sumbernya.</p>
+    </div>
+
+    <div class="article-card">
+      <h3><span class="num">01</span>Pilah dari Rumah, Bukan dari TPA</h3>
+      <p>Memisahkan sampah organik, anorganik (plastik, kaca, logam), dan residu sejak dari rumah membuat proses daur ulang jadi jauh lebih efektif. Sampah yang sudah tercampur basah dan kering biasanya berakhir langsung ke TPA karena sulit dipilah ulang.</p>
+    </div>
+    <div class="article-card">
+      <h3><span class="num">02</span>Kurangi Plastik Sekali Pakai</h3>
+      <p>Bawa tumbler, tas belanja, dan sedotan sendiri. Kebiasaan kecil ini memangkas volume kemasan sekali pakai yang paling sulit didaur ulang, seperti kantong kresek dan sedotan plastik.</p>
+    </div>
+    <div class="article-card">
+      <h3><span class="num">03</span>Dukung Ekonomi Sirkular</h3>
+      <p>Setor sampah plastik ke bank sampah atau komunitas daur ulang terdekat. Beberapa inovasi lokal bahkan sudah mengubah limbah plastik menjadi bahan bangunan jalan hingga kemasan ramah lingkungan berbahan nabati.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Teknologi Opensource &amp; Aplikasi Mobile</span>
+      <h2>Alat digital yang mendukung kampanye ini</h2>
+      <p>Kampanye ini dijalankan dengan memanfaatkan aplikasi mobile dan tools gratis/opensource yang sudah tersedia, bukan membangun sistem dari nol.</p>
+    </div>
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="icon">📋</div>
+        <h3>Google Forms</h3>
+        <p>Dipakai untuk kuesioner kebiasaan buang sampah dan formulir pendaftaran relawan aksi bersih-bersih.</p>
+        <span class="label">Pengumpulan Data</span>
+      </div>
+      <div class="tool-card">
+        <div class="icon">☁️</div>
+        <h3>Google Drive</h3>
+        <p>Menyimpan dokumentasi foto/video kegiatan agar bisa diakses dan dikerjakan bersama tim kapan saja.</p>
+        <span class="label">Penyimpanan Cloud</span>
+      </div>
+      <div class="tool-card">
+        <div class="icon">📸</div>
+        <h3>CamScanner</h3>
+        <p>Memindai laporan kegiatan dan poster edukasi dari kertas ke format digital yang rapi untuk diunggah.</p>
+        <span class="label">Dokumentasi</span>
+      </div>
+      <div class="tool-card">
+        <div class="icon">🎬</div>
+        <h3>OpenShot</h3>
+        <p>Editor video opensource untuk menyunting video edukasi dan rekap aksi sebelum dibagikan ke media sosial.</p>
+        <span class="label">Opensource</span>
+      </div>
+      <div class="tool-card">
+        <div class="icon">🗓️</div>
+        <h3>Google Calendar</h3>
+        <p>Menjadwalkan rangkaian kegiatan kampanye — dari hari pilah sampah mingguan sampai aksi bersih pantai.</p>
+        <span class="label">Manajemen Proyek</span>
+      </div>
+      <div class="tool-card">
+        <div class="icon">💬</div>
+        <h3>Google Meet</h3>
+        <p>Rapat koordinasi relawan dan sesi edukasi daring tanpa harus bertemu tatap muka tiap minggu.</p>
+        <span class="label">Online Meeting</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="aksi">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Cara Berpartisipasi</span>
+      <h2>Tiga langkah bergabung dengan EcoAksi</h2>
+    </div>
+    <ul class="steps">
+      <li>
+        <strong>Isi formulir pendaftaran relawan</strong>
+        Lewat Google Form, ceritakan daerahmu dan kesediaan waktumu untuk ikut aksi bersih-bersih atau edukasi.
+      </li>
+      <li>
+        <strong>Ikuti jadwal aksi mingguan</strong>
+        Jadwal dikirim lewat Google Calendar yang bisa langsung disinkronkan ke kalender HP-mu.
+      </li>
+      <li>
+        <strong>Dokumentasikan &amp; bagikan</strong>
+        Foto hasil aksi, unggah ke Google Drive bersama, lalu bagikan ceritanya di media sosial dengan tagar kampanye.
+      </li>
+    </ul>
+
+    <div class="cta-box" style="margin-top:36px;">
+      <h2>Satu langkah kecil, dampak yang nyata</h2>
+      <p>Daftar jadi relawan EcoAksi dan mulai kurangi sampah plastik dari lingkunganmu sendiri minggu ini.</p>
+      <a class="btn btn-primary" href="#" onclick="alert('Tempel di sini link Google Form pendaftaran relawan kamu.'); return false;">Isi Formulir Relawan</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>EcoAksi</strong> — Kampanye edukasi lingkungan tentang pengelolaan sampah plastik di Indonesia.</p>
+    <p class="refs">Referensi data: Kementerian Lingkungan Hidup dan Kehutanan (KLHK), Kementerian Kelautan dan Perikanan (KKP), databoks.katadata.co.id, Opensource.com.</p>
+  </div>
+</footer>
+
+</body>
+</html>
